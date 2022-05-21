@@ -1,5 +1,16 @@
-# AirBnB Clone - The Console
-The console is the first segment of the AirBnB project at Holberton School that will collectively cover fundamental concepts of higher level programming. The goal of AirBnB project is to eventually deploy our server a simple copy of the AirBnB Website(HBnB). A command interpreter is created in this segment to manage objects for the AirBnB(HBnB) website.
+<h1 align="center" >
+<br>
+    <img src="https://assets.website-files.com/6105315644a26f77912a1ada/610540e8b4cd6969794fe673_Holberton_School_logo-04-04.svg" height="50%" width="40%">
+</h1>
+
+<h2 align="center">
+    Console, MySQL, front-end, flask (framework) and API 
+</h2>
+
+# AirBnB Clone
+<b>The console is the first segment of the AirBnB project at Holberton School that will collectively cover fundamental concepts of higher level programming. The goal of AirBnB project is to eventually deploy our server a simple copy of the AirBnB Website(HBnB). A command interpreter is created in this segment to manage objects for the AirBnB(HBnB) website.
+
+In this repo (fork from Alexa Orrico) we are already in the third part of the AirBnB proyect. The main objective of this stage is to learn to implement a RESTFUL API to use within the project. Just to clarify, The console was stage 1, and stage 2 was to implement a new Storage Strategy using MySQL. Btw these statages, we also build some front-end (static html/css) and later on served it using flask and jinja2 </b> 
 
 #### Functionalities of this command interpreter:
 * Create a new object (ex: a new User or a new Place)
@@ -158,5 +169,14 @@ Alexa Orrico - [Github](https://github.com/alexaorrico) / [Twitter](https://twit
 Jennifer Huang - [Github](https://github.com/jhuang10123) / [Twitter](https://twitter.com/earthtojhuang)
 
 Second part of Airbnb: Joann Vuong
+
+Carlos Bentin -
+<a href="https://github.com/Benkdel">
+        <img src="https://img.shields.io/badge/Carlos-mainPage-blue">
+
+Ronald Altamirano -
+<a href="https://github.com/ronLabs">
+        <img src="https://img.shields.io/badge/Ronald-mainPage-blue">
+
 ## License
 Public Domain. No copy write protection. 
