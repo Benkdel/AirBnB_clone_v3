@@ -24,10 +24,10 @@ def retreiveStates():
                  strict_slashes=False)
 def retreiveStateObj(state_id):
     """ retrieves a state by id """
-    state = storage.get(State, state_id).to_dict()
+    state = storage.get(State, state_id)
     if state is None:
         abort(404)
-    return jsonify(state)
+    return jsonify(state.to_dict())
 
 
 @app_views.route("/states", methods=["POST"],
