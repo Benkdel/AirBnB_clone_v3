@@ -4,10 +4,9 @@
 """
 
 from os import getenv
-import json
 from models import storage
 from api.v1.views import app_views
-from flask import Flask
+from flask import Flask, jsonify
 from flask_cors import CORS
 
 
@@ -22,7 +21,7 @@ CORS(app, resources={"/*": {"origins": "0.0.0.0"}})
 
 @app.errorhandler(404)
 def invalidRoute(e):
-    return json.dumps({"error": "Not found"}, indent=4)
+    return jsonify({"error": "Not found"})
 
 
 @app.teardown_appcontext
