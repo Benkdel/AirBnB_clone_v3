@@ -23,10 +23,10 @@ def retreiveAmenities():
                  strict_slashes=False)
 def retreiveAmenityObj(amenity_id):
     """ retrieves a amenity by id """
-    amenity = storage.get(amenity, amenity_id).to_dict()
+    amenity = storage.get(amenity, amenity_id)
     if amenity is None:
         abort(404)
-    return jsonify(amenity)
+    return jsonify(amenity.to_dict())
 
 
 @app_views.route("/amenities", methods=["POST"],

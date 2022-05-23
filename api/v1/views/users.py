@@ -23,10 +23,10 @@ def retreiveUsers():
                  strict_slashes=False)
 def retreiveUserObj(user_id):
     """ retrieves a user by id """
-    user = storage.get(User, user_id).to_dict()
+    user = storage.get(User, user_id)
     if user is None:
         abort(404)
-    return jsonify(user)
+    return jsonify(user.to_dict())
 
 
 @app_views.route("/users", methods=["POST"],

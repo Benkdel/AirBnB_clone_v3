@@ -3,7 +3,6 @@
     city views
 """
 
-import json
 from api.v1.views import app_views
 from models import storage
 from models.state import State
@@ -28,10 +27,10 @@ def retreiveCities(state_id):
                  strict_slashes=False)
 def retreiveCity(city_id):
     """ get city by id """
-    city = storage.get(City, city_id).to_dict()
+    city = storage.get(City, city_id)
     if city is None:
         abort(404)
-    return jsonify(city)
+    return jsonify(city.to_dict())
 
 
 @app_views.route("/states/<string:state_id>/cities", methods=["POST"],
