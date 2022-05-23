@@ -35,7 +35,7 @@ def retreiveStateObj(state_id):
 def createState():
     """ create a state """
     if not request.get_json():
-        return make_response(jsonify({"error": "Not a JSON"}, 400))
+        return make_response(jsonify({"error": "Not a JSON"}), 400)
     if "name" not in request.get_json():
         return make_response(jsonify({"error": "Missing name"}), 400)
     new_instance = State(**request.get_json())
