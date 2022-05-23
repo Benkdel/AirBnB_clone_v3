@@ -15,7 +15,7 @@ from flask import abort, make_response, request, jsonify
 def retreiveStates():
     """ get list of states objects """
     states = []
-    for state in storage.all("State").values():
+    for state in storage.all(State).values():
         states.append(state.to_dict())
     return jsonify(states)
 
@@ -63,7 +63,7 @@ def updateState(state_id):
     if state is None:
         abort(404)
     if not request.get_json():
-        return make_response(jsonify({"error": "Not a Json"}, 400))
+        return make_response(jsonify({"error": "Not a Json"}), 400)
     for key, val in request.get_json().items():
         if key not in ['id', 'created_at', 'updated_at']:
             setattr(state, key, val)
