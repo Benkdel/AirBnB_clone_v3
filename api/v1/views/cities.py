@@ -42,7 +42,7 @@ def createCity(state_id):
     if "name" not in request.get_json():
         return make_response(jsonify({"error": "Missing name"}), 400)
 
-    state = storage.get(State, state_id).to_dict()
+    state = storage.get(State, state_id)
     if state is None:
         abort(404)
     dict = request.get_json()
