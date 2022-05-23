@@ -113,3 +113,43 @@ class TestFileStorage(unittest.TestCase):
         with open("file.json", "r") as f:
             js = f.read()
         self.assertEqual(json.loads(string), json.loads(js))
+
+
+def test_get_db(self):
+        """Test dbstorage with basic data"""
+        stateObj = State(name="GokuState")
+        stateObj.save()
+        models.storage.save()
+        listObj = list(models.storage.all(State).values())[0].id
+        strObj = str(models.storage.all()['State.' + listObj])
+        self.assertNotEqual(strObj, None)
+
+    def test_classofoutput_get_count_db(self):
+        """Test count dbstorage"""
+        total = (models.storage.count())
+        self.assertEqual(type(total), int)
+        totalState = (models.storage.count(State))
+        self.assertEqual(type(totalState), int)
+        state_id0 = list(models.storage.all(State).values())[0].id
+        classGet = models.storage.get(State, state_id0)
+        self.assertEqual(str(type(classGet)), "<class 'models.state.State'>")
+
+    def test_get_fs(self):
+        """Test fstorage"""
+        stateObj = State(name="GokuState")
+        stateObj.save()
+        failTry = models.storage.get('State', 'failId')
+        self.assertEqual(failTry, None)
+        failTry2 = models.storage.get('failId', stateObj.id)
+        self.assertEqual(failTry2, None)
+
+    def test_count_fs(self):
+        """count fs"""
+        count = models.storage.count()
+        countClass = models.storage.count('State')
+        newState = State(name="GokuState")
+        newState.save()
+        newCount = models.storage.count()
+        newCountClass = models.storage.count('State')
+        self.assertEqual(count + 1, newCount)
+        self.assertEqual(countClass + 1, newCountClass)
