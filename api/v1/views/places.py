@@ -11,7 +11,7 @@ from models.user import User
 from flask import abort, make_response, request, jsonify
 
 
-@app_views.route("/states/<string:city_id>/places", methods=["GET"],
+@app_views.route("/cities/<string:city_id>/places", methods=["GET"],
                  strict_slashes=False)
 def retreivePlaces(city_id):
     """ get list of places from place object """
