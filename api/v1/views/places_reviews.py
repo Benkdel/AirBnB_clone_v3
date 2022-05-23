@@ -59,7 +59,7 @@ def deleteReview(review_id):
     review = storage.get(Review, review_id)
     if review is None:
         abort(404)
-    storage.delete(review)
+    review.delete()
     storage.save()
     return (jsonify({}))
 

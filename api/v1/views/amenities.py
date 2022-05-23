@@ -49,7 +49,7 @@ def deleteAmenity(amenity_id):
     amenity = storage.get(amenity, amenity_id)
     if amenity is None:
         abort(404)
-    storage.delete(amenity)
+    amenity.delete(amenity)
     storage.save()
     return (jsonify({}))
 

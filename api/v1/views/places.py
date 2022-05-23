@@ -58,7 +58,7 @@ def deletePlace(place_id):
     place = storage.get(Place, place_id)
     if place is None:
         abort(404)
-    storage.delete(place)
+    place.delete()
     storage.save()
     return (jsonify({}))
 
