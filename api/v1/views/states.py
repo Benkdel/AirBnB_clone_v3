@@ -7,7 +7,7 @@ import json
 from api.v1.views import app_views
 from models import storage
 from models.state import State
-from flask import abort, make_response, request
+from flask import abort, make_response, request, jsonify
 
 
 @app_views.route("/states", methods=["GET"],
@@ -17,7 +17,7 @@ def retreiveStates():
     states = []
     for state in storage.all("State").values():
         states.append(state.to_dict())
-    return json.dumps(states, indent=4)
+    return jsonify(states)
 
 
 @app_views.route("/states/<state_id>", methods=["GET"],
@@ -27,7 +27,7 @@ def retreiveStateObj(state_id):
     state = storage.get(State, state_id).to_dict()
     if state is None:
         abort(404)
-    return json.dumps(state, indent=4)
+    return jsonify(state)
 
 
 @app_views.route("/states", methods=["POST"],
@@ -42,8 +42,7 @@ def createState():
                                         indent=4), 400)
     new_instance = State(**request.get_json())
     new_instance.save()
-    return make_response(json.dumps(new_instance.to_dict(),
-                                    indent=4), 201)
+    return make_response(jsonify(new_instance.to_dict()), 201)
 
 
 @app_views.route("/states/<string:state_id>", methods=["DELETE"],
@@ -55,7 +54,7 @@ def deleteState(state_id):
         abort(404)
     state.delete()
     storage.save()
-    return (json.dumps({}, indent=4))
+    return (jsonify({}))
 
 
 @app_views.route("/states/<string:state_id>", methods=["PUT"],
@@ -72,4 +71,4 @@ def updateState(state_id):
         if key not in ['id', 'created_at', 'updated_at']:
             setattr(state, key, val)
     state.save()
-    return json.dumps(state.to_dict(), indent=4)
+    return jsonify(state.to_dict())
