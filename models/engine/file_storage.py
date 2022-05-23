@@ -4,6 +4,7 @@ Contains the FileStorage class
 """
 
 import json
+from multiprocessing.sharedctypes import Value
 from models.amenity import Amenity
 from models.base_model import BaseModel
 from models.city import City
@@ -55,7 +56,7 @@ class FileStorage:
                 jo = json.load(f)
             for key in jo:
                 self.__objects[key] = classes[jo[key]["__class__"]](**jo[key])
-        except FileExistsError:
+        except:
             pass
 
     def delete(self, obj=None):
