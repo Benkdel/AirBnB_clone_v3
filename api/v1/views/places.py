@@ -3,12 +3,11 @@
     places views
 """
 
-import json
 from api.v1.views import app_views
 from models import storage
 from models.place import Place
 from models.city import City
-from flask import abort, make_response, request
+from flask import abort, make_response, request, jsonify
 
 
 @app_views.route("/states/<string:city_id>/places", methods=["GET"],
@@ -21,7 +20,7 @@ def retreivePlaces(city_id):
     places = []
     for place in city.places:
         places.append(place.to_dict())
-    return json.dumps(places, indent=4)
+    return jsonify(places)
 
 
 @app_views.route("/places/<string:place_id>", methods=["GET"],
@@ -31,7 +30,7 @@ def retreivePlace(place_id):
     place = storage.get(Place, place_id).to_dict()
     if place is None:
         abort(404)
-    return json.dumps(place, indent=4)
+    return jsonify(place)
 
 
 @app_views.route("/cities/<string:city_id>/places", methods=["POST"],
@@ -39,11 +38,9 @@ def retreivePlace(place_id):
 def createPlace(city_id):
     """ create a place """
     if not request.get_json():
-        return make_response(json.dumps({"error": "Not a JSON"},
-                                        indent=4), 400)
+        return make_response(jsonify({"error": "Not a JSON"}), 400)
     if "name" not in request.get_json():
-        return make_response(json.dumps({"error": "Missing name"},
-                                        indent=4), 400)
+        return make_response(jsonify({"error": "Missing name"}), 400)
     city = storage.get(City, city_id).to_dict()
     if city is None:
         abort(404)
@@ -51,8 +48,7 @@ def createPlace(city_id):
     dict["city_id"] = city_id
     new_instance = Place(**dict)
     new_instance.save()
-    return make_response(json.dumps(new_instance.to_dict(),
-                                    indent=4), 201)
+    return make_response(jsonify(new_instance.to_dict(), 201))
 
 
 @app_views.route("/places/<string:place_id>", methods=["DELETE"],
@@ -64,7 +60,7 @@ def deletePlace(place_id):
         abort(404)
     storage.delete(place)
     storage.save()
-    return (json.dumps({}, indent=4))
+    return (jsonify({}))
 
 
 @app_views.route("/places/<string:place_id>", methods=["PUT"],
@@ -75,10 +71,9 @@ def updatePlace(place_id):
     if place is None:
         abort(404)
     if not request.get_json():
-        return make_response(json.dumps({"error": "Not a Json"},
-                                        indent=4), 400)
+        return make_response(jsonify({"error": "Not a Json"}), 400)
     for key, val in request.get_json().items():
         if key not in ['id', 'created_at', 'updated_at']:
             setattr(place, key, val)
     place.save()
-    return json.dumps(place.to_dict(), indent=4)
+    return jsonify(place.to_dict())

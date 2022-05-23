@@ -3,7 +3,7 @@
     routes for app_views blueprint
 """
 
-import json
+from flask import jsonify
 from api.v1.views import app_views
 from models import storage
 from models.amenity import Amenity
@@ -20,7 +20,7 @@ cls_names = {"Amenity": Amenity, "City": City,
 @app_views.route('/status', strict_slashes=False)
 def status():
     status = {"status": "OK"}
-    return json.dumps(status, indent=4)
+    return jsonify(status)
 
 
 @app_views.route('/stats', strict_slashes=False)
@@ -29,7 +29,7 @@ def stats():
     for cls in cls_names:
         count = storage.count(cls)
         dict[cls] = count
-    return json.dumps(dict, indent=4)
+    return jsonify(dict)
 
 
 if __name__ == "__main__":
