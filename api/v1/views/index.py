@@ -16,6 +16,10 @@ from models.user import User
 cls_names = {"Amenity": Amenity, "City": City,
              "Place": Place, "Review": Review, "State": State, "User": User}
 
+cls_format_names = {"Amenity": "amenities", "City": "cities",
+                    "Place": "places", "Review": "reviews",
+                    "State": "states", "User": "users"}
+
 
 @app_views.route('/status', strict_slashes=False)
 def status():
@@ -28,7 +32,7 @@ def stats():
     dict = {}
     for cls in cls_names:
         count = storage.count(cls)
-        dict[cls] = count
+        dict[cls_format_names[cls]] = count
     return jsonify(dict)
 
 
