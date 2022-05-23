@@ -89,6 +89,7 @@ class DBStorage:
                 objs[:] = (o for o in objs if o)
                 count += len(objs)
         return (count)
+
     def close(self):
         """call remove() method on the private session attribute"""
         self.__session.remove()
