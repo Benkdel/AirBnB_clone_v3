@@ -14,7 +14,7 @@ from flask import abort, make_response, request, jsonify
 def retreiveAmenities():
     """ get list of amenities objects """
     amenities = []
-    for amenity in storage.all("amenity").values():
+    for amenity in storage.all(Amenity).values():
         amenities.append(amenity.to_dict())
     return jsonify(amenities)
 
@@ -49,7 +49,7 @@ def deleteAmenity(amenity_id):
     amenity = storage.get(amenity, amenity_id)
     if amenity is None:
         abort(404)
-    amenity.delete(amenity)
+    amenity.delete()
     storage.save()
     return (jsonify({}))
 
