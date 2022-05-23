@@ -7,6 +7,7 @@ from api.v1.views import app_views
 from models import storage
 from models.place import Place
 from models.city import City
+from models.user import User
 from flask import abort, make_response, request, jsonify
 
 
@@ -27,10 +28,10 @@ def retreivePlaces(city_id):
                  strict_slashes=False)
 def retreivePlace(place_id):
     """ get place by id """
-    place = storage.get(Place, place_id).to_dict()
+    place = storage.get(Place, place_id)
     if place is None:
         abort(404)
-    return jsonify(place)
+    return jsonify(place.to_dict())
 
 
 @app_views.route("/cities/<string:city_id>/places", methods=["POST"],
@@ -39,10 +40,15 @@ def createPlace(city_id):
     """ create a place """
     if not request.get_json():
         return make_response(jsonify({"error": "Not a JSON"}), 400)
+    if "user_id" not in request.get_json():
+        return make_response(jsonify({"error": "Missing user_id"}), 400)
     if "name" not in request.get_json():
         return make_response(jsonify({"error": "Missing name"}), 400)
-    city = storage.get(City, city_id).to_dict()
+    city = storage.get(City, city_id)
     if city is None:
+        abort(404)
+    user = storage.get(User, request.get_json()["user_id"])
+    if user is None:
         abort(404)
     dict = request.get_json()
     dict["city_id"] = city_id
